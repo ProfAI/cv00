@@ -1,32 +1,34 @@
 import cv2
 import os
 
-DATASET_DIR = "../datasets/cat_dog/"
-IMAGES_DIR = DATASET_DIR+"images/"
+DATASET_DIR = "../datasets/cat_dog_small/"
+OUTFILE_NAME = "cat_dog.csv"
 SCALE = (64, 64)
 
-out = open(DATASET_DIR+"cat_dog.csv","w")
-count = 0
+out = open(DATASET_DIR+OUTFILE_NAME, "w")
 
-for f in os.listdir(IMAGES_DIR):
-    if(".jpg" in f):
-        if("cat" in f):
-            label="1"
-        elif("dog" inW f):
-            label="0"
-        else:
+classes = {"cat":"1", "dog":"0"}
+counter = {"cat":0, "dog":0}
+
+print("Letture di tutte le immagini da %s" % DATASET_DIR)
+print("Scrittura in %s" % OUTFILE_NAME)
+
+for c in classes:
+    
+    current_dir = DATASET_DIR+c
+
+    for f in os.listdir(current_dir):
+
+        if(not ".jpg" in f):
             continue
-        
-        img = cv2.imread(IMAGES_DIR+f, cv2.IMREAD_GRAYSCALE)
+
+        img = cv2.imread(current_dir+"/"+f, cv2.IMREAD_GRAYSCALE)
         img = cv2.resize(img, SCALE)
         img = img.flatten().astype(str)
-        data = str(count)+","+",".join(img)+","+label
+        data = ",".join(img)+","+classes[c]
         out.write(data+"\n")
-        count+=1
         
+        counter[c]+=1
 
-out.seek(out.tell()-2, os.SEEK_SET)
-out.truncate()
 out.close()
-
-print("%d immagini scritte" % count)
+print("Immagini scritte: %s" %counter)
