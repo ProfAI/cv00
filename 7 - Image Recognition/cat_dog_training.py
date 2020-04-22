@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 
 # Carichiamo il Dataset
-DATASET_PATH = "../datasets/cat_dog/cat_dog.csv"
+DATASET_PATH = "../datasets/cat_dog_small/cat_dog.csv"
 dataset = np.loadtxt(open(DATASET_PATH, "rb"), delimiter=",")
 
 # Prepariamo i Dati
