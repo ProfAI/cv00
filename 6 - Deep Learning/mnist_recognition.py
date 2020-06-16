@@ -15,6 +15,9 @@ small_img = cv2.resize(img, SCALE)
 x = small_img.flatten().astype(float)
 x/=255.
 
+# Convertiamo in negativo
+x = 1-x
+
 # Riconoscimento dell'immagine
 x = x.reshape(1,x.shape[0])
 proba = model.predict(x)
