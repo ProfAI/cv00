@@ -26,6 +26,8 @@ while(cap.isOpened()):
         img = frame[rect[1]:rect[1]+rect[3], rect[0]:rect[0]+rect[2]]
 
         small_img = cv2.resize(img, SCALE)
+        small_img = cv2.cvtColor(small_img, cv2.COLOR_BGR2RGB)
+
         x = small_img.astype(float)
         x/=255.
 
